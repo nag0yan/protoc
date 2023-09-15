@@ -1,0 +1,27 @@
+/**
+  これはショッピングサービスです。ショッピングカート機能を提供しています。
+
+  ログイン情報はメタデータのJWTトークンで指定するため、引数には入りません。
+*/
+
+syntax = "proto3";
+
+package shoppingcart.v1;
+
+/// ショッピングカートサービスです。
+service ShoppingCartService {
+  /**
+    ショッピングカートに商品を追加します。同じ商品が追加された場合には個数が合計されます。
+  */
+  rpc AddItem(AddItemRequest) returns (AddItemResponse) {}
+}
+
+message AddItemRequest {
+  string product_id = 1; /// 商品ID: JANコード
+  int32 quantity = 2;    /// 個数
+}
+
+message AddItemResponse {
+  bool success = 1;      ///成功かどうかのフラグ
+  int32 total_price = 2; ///合計金額
+}
